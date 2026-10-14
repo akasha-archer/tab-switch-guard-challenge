@@ -24,7 +24,8 @@ import com.example.tab_switch_guard.model.allProducts
 @Composable
 fun ProductList(
     modifier: Modifier = Modifier,
-    products: List<ProductData> = listOf()
+    products: List<ProductData> = listOf(),
+    productCategory: String = ""
 ) {
     Column(
         modifier = modifier
