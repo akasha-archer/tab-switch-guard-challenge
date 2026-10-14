@@ -11,7 +11,7 @@ data class ProductData(
     val productCategory: List<ProductCategory>
 ) {
     fun getSubtitleList(): String {
-        return subTitle.joinToString(separator = " • ")
+        return subTitle.joinToString(separator = "  •  ")
     }
 }
 
@@ -22,7 +22,7 @@ enum class ProductCategory {
     SALE
 }
 
-val fullProductList = listOf(
+val allProducts = listOf(
     ProductData(
         imageThumbnail = R.drawable.wireless_earbods,
         productName = "Wireless Earbuds Pro",
@@ -43,7 +43,7 @@ val fullProductList = listOf(
         imageThumbnail = R.drawable.usbc_hub,
         productName = "USB-C Hub 7-in-1",
         productPrice = "$29.99",
-        subTitle = listOf("4K", "HDMI", "100W", "PD"),
+        subTitle = listOf("4K", "HDMI", "100W PD"),
         productCategory = listOf(ProductCategory.ALL, ProductCategory.SALE)
     ),
 
