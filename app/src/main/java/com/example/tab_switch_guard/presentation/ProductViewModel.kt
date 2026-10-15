@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
 
 sealed interface ProductUiState {
     data class Loading(val tabTitle: String) : ProductUiState
@@ -49,7 +50,7 @@ class ProductViewModel : ViewModel() {
 
         // 3. Launch new coroutine with simulated latency
         loadJob = viewModelScope.launch {
-            delay(tab.delayMs)
+            delay(tab.delayMs.milliseconds)
             val filtered = allProducts.filter { it.productCategory.contains(tab.category) }
             _uiState.value = ProductUiState.Success(tab = tab, products = filtered)
         }
