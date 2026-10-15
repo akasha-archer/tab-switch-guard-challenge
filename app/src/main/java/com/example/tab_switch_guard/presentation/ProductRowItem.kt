@@ -2,25 +2,32 @@ package com.example.tab_switch_guard.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tab_switch_guard.model.ProductCategory
 import com.example.tab_switch_guard.model.ProductData
 import com.example.tab_switch_guard.model.allProducts
+import com.example.tab_switch_guard.ui.theme.Background
+import com.example.tab_switch_guard.ui.theme.Surface
 
 @Composable
 fun ProductList(
@@ -28,25 +35,36 @@ fun ProductList(
     products: List<ProductData> = listOf(),
     productCategory: ProductCategory = ProductCategory.ALL
 ) {
+    val productsToDisplay = products.filter { product ->
+        product.productCategory.contains(productCategory)
+    }
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = Color.LightGray)
+            .background(color = Background)
     ) {
-        val productsToDisplay = products.filter { product ->
-            product.productCategory.contains(productCategory)
-        }
         ProductResultCount(
             modifier = Modifier
                 .padding(top = 16.dp, start = 16.dp),
             count = productsToDisplay.size
         )
-        productsToDisplay.forEach { product ->
-            ItemCard(
-                imageResource = product.imageThumbnail,
-                productData = product
-            )
-        }
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            state = rememberLazyListState(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            content = {
+                items(
+                    items = productsToDisplay
+                ) { product ->
+                    ItemCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        imageResource = product.imageThumbnail,
+                        productData = product
+                    )
+                }
+            }
+        )
     }
 }
 
@@ -57,10 +75,9 @@ fun ItemCard(
     productData: ProductData
 ) {
     Card(
-        modifier = modifier
-            .padding(start = 16.dp, end = 16.dp, top = 16.dp),
+        modifier = modifier,
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = Surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Row(
@@ -96,18 +113,21 @@ fun ProductDetails(
         Text(
             modifier = Modifier,
             text = productData.productName,
-            color = Color.Black
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface
         )
         Text(
             modifier = Modifier,
             text = productData.getSubtitleList(),
-            color = Color.Black
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(
             modifier = Modifier
                 .padding(top = 16.dp),
             text = productData.productPrice,
-            color = Color.Black
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface
         )
     }
 }
@@ -120,7 +140,8 @@ fun ProductResultCount(
     Text(
         modifier = modifier,
         text = "$count results",
-        color = Color.Black
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.onBackground
     )
 }
 

@@ -44,7 +44,7 @@ val allProducts = listOf(
         productName = "USB-C Hub 7-in-1",
         productPrice = "$29.99",
         subTitle = listOf("4K", "HDMI", "100W PD"),
-        productCategory = listOf(ProductCategory.ALL, ProductCategory.SALE)
+        productCategory = listOf(ProductCategory.ALL, ProductCategory.POPULAR, ProductCategory.SALE)
     ),
 
     ProductData(
@@ -68,14 +68,14 @@ val allProducts = listOf(
         productName = "Webcam HD 1080p",
         productPrice = "$54.99",
         subTitle = listOf("Auto-focus", "Ring light"),
-        productCategory = listOf(ProductCategory.ALL, ProductCategory.NEW)
+        productCategory = listOf(ProductCategory.ALL, ProductCategory.POPULAR, ProductCategory.NEW)
     ),
 
     ProductData(
         imageThumbnail = R.drawable.led_lamp,
         productName = "LED Desk Lamp",
-        productPrice = "$49.99",
+        productPrice = "$19.99",
         subTitle = listOf("Dimmable", "USB-A port"),
-        productCategory = listOf(ProductCategory.ALL, ProductCategory.SALE)
+        productCategory = listOf(ProductCategory.ALL, ProductCategory.POPULAR, ProductCategory.SALE)
     ),
 )
