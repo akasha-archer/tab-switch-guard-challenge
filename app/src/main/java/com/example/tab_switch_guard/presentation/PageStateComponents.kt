@@ -6,13 +6,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tab_switch_guard.ui.theme.Background
+import com.example.tab_switch_guard.ui.theme.OnSurfaceVariant
+import com.example.tab_switch_guard.ui.theme.Outline
+import com.example.tab_switch_guard.ui.theme.Primary
 
 @Composable
 fun LoadingStateScreen(
@@ -22,19 +26,22 @@ fun LoadingStateScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = Color.White),
+            .background(color = Background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
-            64.dp,
+            16.dp,
             alignment = Alignment.CenterVertically
         )
     ) {
         CircularProgressIndicator(
-            modifier = Modifier
-                .width(72.dp),
+            modifier = Modifier.width(48.dp),
+            color = Primary,
+            trackColor = Outline
         )
         Text(
             text = "Loading \"$tabTitle\"...",
+            style = MaterialTheme.typography.bodyMedium,
+            color = OnSurfaceVariant
         )
     }
 }
