@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tab_switch_guard.model.ProductCategory
 import com.example.tab_switch_guard.model.ProductData
 import com.example.tab_switch_guard.model.allProducts
 
@@ -25,19 +26,22 @@ import com.example.tab_switch_guard.model.allProducts
 fun ProductList(
     modifier: Modifier = Modifier,
     products: List<ProductData> = listOf(),
-    productCategory: String = ""
+    productCategory: ProductCategory = ProductCategory.ALL
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.LightGray)
     ) {
+        val productsToDisplay = products.filter { product ->
+            product.productCategory.contains(productCategory)
+        }
         ProductResultCount(
             modifier = Modifier
                 .padding(top = 16.dp, start = 16.dp),
-            count = products.size
+            count = productsToDisplay.size
         )
-        products.forEach { product ->
+        productsToDisplay.forEach { product ->
             ItemCard(
                 imageResource = product.imageThumbnail,
                 productData = product
